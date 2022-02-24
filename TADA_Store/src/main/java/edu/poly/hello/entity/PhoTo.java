@@ -1,12 +1,16 @@
 package edu.poly.hello.entity;
 
+
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity(name="photo")
-public class PhoTo {
+public class PhoTo implements Serializable{
 	@Id
 	@GeneratedValue
 	int id;

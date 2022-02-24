@@ -1,5 +1,7 @@
 package edu.poly.hello.entity;
 
+
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -10,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity(name="product")
-public class SanPham {
+public class SanPham implements Serializable{
 	//`id`, `name`, `photo_id`, `brand_id`, `category_id`, `color`, `size`, `price`, `discount`, `note`, `quantity`, `updated_at`
 	@Id
 	@GeneratedValue

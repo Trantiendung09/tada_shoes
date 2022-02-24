@@ -1,10 +1,13 @@
 package edu.poly.hello.entity;
 
+
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "NhanVien")
-public class NhanVien {
+public class NhanVien implements Serializable{
 	@Id
 	int id;
 	String tennhanvien;

@@ -28,14 +28,24 @@ public class SanPhamServiceImp implements SanPhamService{
 		
 		return sanPhamDao.getsanpham_loai(id);
 	}
-	public Paged<SanPham> getPage(int pageNumber, int size) {
-        PageRequest request = PageRequest.of(pageNumber - 1, size);
-        Page<SanPham> postPage = sanPhamDao.findAll(request);
-        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
-    }
+//	public Paged<SanPham> getPage(int pageNumber, int size) {
+//        PageRequest request = PageRequest.of(pageNumber - 1, size);
+//        Page<SanPham> postPage = sanPhamDao.findAll(request);
+//        return new Paged<>(postPage, Paging.of(postPage.getTotalPages(), pageNumber, size));
+//    }
 	public Page<SanPham> findPage(int pageNumber){
 	    Pageable pageable = PageRequest.of(pageNumber - 1,5);
 	    return sanPhamDao.findAll(pageable);
 	    
 	}
+	public SanPham findById(String id) {
+		int i=Integer.parseInt(id);
+		return sanPhamDao.getById(i);
+	}
+	public List<SanPham> search_sanpham(String name)
+	{
+		
+		return sanPhamDao.search_sanpham(name);
+	}
+	
 }

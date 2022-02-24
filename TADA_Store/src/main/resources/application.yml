@@ -15,5 +15,6 @@ spring:
         dialect: org.hibernate.dialect.MySQL57InnoDBDialect
   thymeleaf:
     prefix: classpath:/templates/view/
-    
+  session:
+    store-type: jdbc
 

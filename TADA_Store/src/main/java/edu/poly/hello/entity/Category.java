@@ -1,5 +1,6 @@
 package edu.poly.hello.entity;
 
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 @Entity(name="category")
-public class Category {
+public class Category implements Serializable{
 	@Id
 	@GeneratedValue
 	int id;

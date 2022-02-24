@@ -1,0 +1,119 @@
+<section id="cart_items">
+		<div class="container" >
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="#">Home</a></li>
+				  <li class="active">Shopping Cart</li>
+				</ol>
+			</div>
+			<div style="width:100%;" >
+				<table  style="width:100%;" >
+					<thead>
+						<tr >
+							<td >Item</td>
+							<td >Name</td>
+							<td >Price</td>
+							<td >Quantity</td>
+							<td >Total</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cart:${Cart.values()}">
+							<td style="width: 20%;">
+								<a href=""><img style="width:150px; height:150px;" th:src="@{'/Styles/images/product-details/' + ${cart.getSanpham().getPhoto().getPhoto_n1()}}" alt=""></a>
+							</td>
+							<td style="width: 25%; padding-right:10%; ">
+								<h6><a style="color: Orange; font-size:15px ;" href="" th:text="${cart.getSanpham().getName()}"></a></h6>
+								<p>Web ID: 1089772</p>
+							</td>
+							<td style="width: 10%;">
+								<p th:text="${cart.getSanpham().getPrice()}"></p>
+							</td>
+							<td style="width: 15%;">
+								<div class="cart_quantity_button">
+									<a class="cart_quantity_up" href=""> + </a>
+									<input id="quantity" class="cart_quantity_input" type="text" name="quantity" th:value="${cart.getQuantity}" autocomplete="off" size="2">
+									<a class="cart_quantity_down" href=""> - </a>
+								</div>
+							</td>
+							<td style="width: 5%;">
+								<p class="cart_total_price">$59</p>
+							</td>
+							<td style="width: 5%; ">
+								<p class="id_product" th:text="${cart.getSanpham().getId()}"></p>
+								<a class="deletecart"  title="xoa" href="" style="padding-left:10px; color: Orange;font-size:25px ;
+  background-color: transparent;
+  text-decoration: none;"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+							</td>
+							<td style="width: 5%; ">
+								<p class="id_product" th:text="${cart.getSanpham().getId()}"></p>
+								<a class="updatecart" title="sua" href="" style="padding-left:10px; color: Orange;font-size:25px ; 
+  background-color: transparent;
+  text-decoration: none;"><i class="fa fa-wrench" aria-hidden="true"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				<script src="/Styles/js/jquery.js"></script>
+	<script src="/Styles/js/bootstrap.min.js"></script>
+	<script src="/Styles/js/jquery.scrollUp.min.js"></script>
+	<script src="/Styles/js/price-range.js"></script>
+	<script src="/Styles/js/jquery.prettyPhoto.js"></script>
+	<script src="/Styles/js/main.js"></script>
+	<script >
+	function updatecart(event)
+	{
+		event.preventDefault();
+		var id=$(this).parent('td').children('p.id_product').text();
+		var quantity=$(this).parents('tr').find('.cart_quantity_input').val();
+		alert(id);
+		$.ajax({
+			type: 'GET',
+			contentType: "application/json",
+			url:"/updatecart",
+			data:{
+				id:id, quantity: quantity},
+			success: function(data)
+			{
+				alert("ok");
+				$('#cart_items').html(data);
+				
+			},
+			error: function(e)
+			{
+				alert("loi")
+			}
+			});
+	}
+	function deletecart(event)
+	{
+		event.preventDefault();
+		var id=$(this).parent('td').children('p.id_product').text();
+		alert(id);
+		$.ajax({
+			type: 'GET',
+			contentType: "application/json",
+			url: "/deletecart",
+			data: {id: id},
+			success: function(data)
+			{
+				alert("ok");
+				$('#cart_items').html(data);
+				},
+			error: function(data)
+			{
+				alert("loi");
+				}
+			})
+		
+	}
+	$(document).ready(function(){
+		   $('a.updatecart').click(updatecart);
+		   $('a.deletecart').click(deletecart);
+		   $("p.id_product").hide();
+		})
+	</script>
+		</div>
+	</section>

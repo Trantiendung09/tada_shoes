@@ -129,17 +129,16 @@
 												th:src="@{'/Styles/images/product-details/' + ${sanpham.getPhoto().getPhoto_n1()}}"
 												alt="">
 											<h2 style="height: 20px;" th:text="${sanpham.getPrice() }"></h2>
-						
-											<a    id="addtocart" data-url=[[${sanpham.getId}]] href="#" class="btn btn-default add-to-cart"><i
+											<p style="height: 50px;" th:text="${sanpham.getName() } "></p>
+											<a href="#" class="btn btn-default add-to-cart"><i
 												class="fa fa-shopping-cart"></i>Add to cart</a>
 										</div>
-										<div class="product-overlay d">
+										<div class="product-overlay">
 											<div class="overlay-content">
 												<h2>$56</h2>
-												<p >Easy Polo Black Edition</p>
-												<p th:text="${sanpham.getId()}" class="id_product" ></p>
-												<a type="button" id="addtocart"   href="#" class="btn btn-default add-to-cart">
-												<i class="fa fa-shopping-cart"></i>Add to cart</a>
+												<p>Easy Polo Black Edition</p>
+												<a href="#" class="btn btn-default add-to-cart"><i
+													class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 										</div>
 									</div>
@@ -162,14 +161,7 @@
 						</div>
 
 					</div>
-					<footer style="font-size: large" class="panel-footer">
-						Total Items [[${totalItems}]] : Page [[${currentPage}]] of
-						[[${totalPages}]] &nbsp; &nbsp; - &nbsp; <span
-							th:each="i: ${#numbers.sequence(1, totalPages)}"> <a
-							th:href="@{'/parameters/countries/page/' + ${i}}">[[${i}]]</a>
-							&nbsp; &nbsp;
-						</span>
-					</footer>
+					
 					<!--features_items-->
 
 					<div class="category-tab">
@@ -338,7 +330,7 @@
 												<img src="resources/Styles/images/home/gallery1.jpg" alt="">
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" id="addtocard" class="btn btn-default add-to-cart"><i
+												<a href="#" class="btn btn-default add-to-cart"><i
 													class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
@@ -352,7 +344,7 @@
 												<img src="resources/Styles/images/home/gallery2.jpg" alt="">
 												<h2>$56</h2>
 												<p>Easy Polo Black Edition</p>
-												<a href="#" id="addtocard" class="btn btn-default add-to-cart"><i
+												<a href="#" class="btn btn-default add-to-cart"><i
 													class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
 
@@ -368,7 +360,7 @@
 											<div class="productinfo text-center">
 												<img src="resources/Styles/images/home/gallery1.jpg" alt="">
 												<h2>$56</h2>
-												<p class="[[${currentPage}]]" >Easy Polo Black Edition</p>
+												<p>Easy Polo Black Edition</p>
 												<a href="#" class="btn btn-default add-to-cart"><i
 													class="fa fa-shopping-cart"></i>Add to cart</a>
 											</div>
@@ -618,7 +610,7 @@
 	        search["name"]=$("#search").val();
 	        alert(search["name"])
 	        var x=$("#search").val();
-	        window.location="/kk/"+ x;
+	       window.location="/kk/"+ x;
 		    //$.ajax({
 			//	type: "GET",
 			//	contentType:"application/json",
@@ -639,33 +631,6 @@
 	         return false;
 	      }
 	   }
-	
-	function addtocard(event)
-	{
-		event.preventDefault();
-		var id=$(this).parent('div').children('p.id_product').text();
-		alert(id);
-		$.ajax({
-			type: "GET",
-			contentType: "application/json",
-			url:"/addtocard",
-			data:{
-				id:id},
-			success: function(data)
-			{
-				alert(data);
-			},
-			error: function(e)
-			{
-				alert("loi")
-			}
-			});
-		
-	}
-	$(document).ready(function() {
-	    $('a.add-to-cart').click(addtocard);
-	    $("p.id_product").hide();
-	})
 	</script>
 </body>
 </html>
