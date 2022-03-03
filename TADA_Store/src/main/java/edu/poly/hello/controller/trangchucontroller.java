@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,9 +29,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import edu.poly.hello.entity.BlogPost;
+import edu.poly.hello.entity.Brand;
 import edu.poly.hello.entity.Category;
+import edu.poly.hello.entity.Customer;
+import edu.poly.hello.entity.Orrder;
+import edu.poly.hello.entity.Order_detail;
 import edu.poly.hello.entity.SanPham;
 import edu.poly.hello.entity.cart;
+import edu.poly.hello.service.Customer_service;
+import edu.poly.hello.service.Order_Service;
 import edu.poly.hello.service.SanPhamServiceImp;
 import edu.poly.hello.service.category_service;
 
@@ -42,7 +50,10 @@ public class trangchucontroller {
 	SanPhamServiceImp sanPham_Service;
 	@Autowired
 	category_service category_service;
-
+	@Autowired
+	Customer_service customer_service;
+	@Autowired
+	Order_Service order_service;
 //	@GetMapping("/home")
 //	public String home(Model lo) {
 //
@@ -117,8 +128,11 @@ public class trangchucontroller {
                 shoppingCart.put(i, item);
             }
         }
+      
+      
         session.setAttribute("myCartItems", shoppingCart);
         session.setAttribute("myCartNum", shoppingCart.size());
+        
         return "s";
 	}
 	@GetMapping("/test")
@@ -127,7 +141,15 @@ public class trangchucontroller {
 	    // store data in session
 		HashMap<Integer, cart> shoppingCart=(HashMap<Integer, cart>) session.getAttribute("myCartItems");
 		m.addAttribute("Cart",shoppingCart);
-	    return "home";
+		  float total = 0;
+		  for (Entry<Integer, cart> entry : shoppingCart.entrySet()) {
+	            System.out.println(entry.getKey() + " - " + entry.getValue());
+	            total+=entry.getValue().getQuantity()*entry.getValue().getSanpham().getPrice();
+	        }
+	        m.addAttribute("total", total);
+	       Customer customer=new Customer();
+	       m.addAttribute("customer",customer);
+	    return "home_cart";
 	}
 	@GetMapping("/updatecart")
 	@ResponseBody
@@ -152,10 +174,17 @@ public class trangchucontroller {
 			
 		    System.out.println("not a number"); 
 		}
+		float total = 0;
+        for (Entry<Integer, cart> entry : shoppingCart.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+            total+=entry.getValue().getQuantity()*entry.getValue().getSanpham().getPrice();
+        }
+        session.setAttribute("total", total);
 		session.removeAttribute("myCartItems");
 		session.setAttribute("myCartItems", shoppingCart);
 		mav.setViewName("cart");
 		mav.addObject("Cart",shoppingCart);
+		mav.addObject("total",total);
 		return mav;
 	}
 	@GetMapping("/deletecart")
@@ -177,12 +206,47 @@ public class trangchucontroller {
 			
 		    System.out.println("not a number"); 
 		}
+		float total = 0;
+        for (Entry<Integer, cart> entry : shoppingCart.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+            total+=entry.getValue().getQuantity()*entry.getValue().getSanpham().getPrice();
+        }
+        session.setAttribute("total", total);
 		session.removeAttribute("myCartItems");
 		session.setAttribute("myCartItems", shoppingCart);
 		mav.setViewName("cart");
 		mav.addObject("Cart",shoppingCart);
+		mav.addObject("total",total);
+	
 		return mav;
 	}
-
 	
+	@PostMapping("/muahang")
+	public String muahang(Customer customer, HttpSession session)
+	{
+		// add customer
+		HashMap<Integer, cart> shoppingCart = (HashMap<Integer, cart>) session.getAttribute("myCartItems");
+		float total = 0;
+        for (Entry<Integer, cart> entry : shoppingCart.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+            total+=entry.getValue().getQuantity()*entry.getValue().getSanpham().getPrice();
+        }
+//        List<Orrder> list=order_service.getall();
+//        for (Orrder order : list) {
+//			System.out.println("dmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm: "+order.getStatus());
+//		}
+		customer_service.Add_customer(customer);
+		//int x=customer.getId();
+		Orrder order=new Orrder();
+		order.setCustomer(customer);
+		order.setTotal(total);
+		order.setStatus(0);
+		order_service.save(order);
+		return "tth";
+	}
+	
+	private void setDefaultBlogPost(Model model) {
+		Customer customer = new Customer();		
+		model.addAttribute("customer", customer);
+	}
 }

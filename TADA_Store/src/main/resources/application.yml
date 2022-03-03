@@ -17,4 +17,13 @@ spring:
     prefix: classpath:/templates/view/
   session:
     store-type: jdbc
-
+    security:
+    oauth2:
+      client:
+        registration:
+         facebook:
+          clientId: 905483813447774
+          clientSecret: b5fa55cd01cd2d87467a75ac1b55b8db
+          scope:
+           - email
+           - public_profile

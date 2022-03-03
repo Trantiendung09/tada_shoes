@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -19,8 +19,15 @@
 <link href="/Styles/css/responsive.css" rel="stylesheet">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+	<style type="text/css">
+	ul, li{
+list-style:none;
+}
+	</style>
+	
 </head>
 <body>
+<div id = "fb-root" ></div> 
 	<div th:replace="header:: header"></div>
 	<section id="slider" th:fragment="slider">
 		<!--slider-->
@@ -599,7 +606,6 @@
 			</div>
 		</div>
 	</section>
-
 	<div th:replace="footer:: footer"></div>
 	<!--/Footer-->
 	<a id="scrollUp" href="#top"

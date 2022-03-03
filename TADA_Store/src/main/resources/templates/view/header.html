@@ -3,6 +3,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+	<style type="text/css">
+	ul, li{
+		list-style:none;
+		}
+	</style>
 </head>
 <body>
 <header id="header" th:fragment="header"><!--header-->
@@ -19,7 +24,7 @@
 					</div>
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
-							<ul class="nav navbar-nav">
+							<ul class="nav navbar-nav" style="display: block;">
 								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 								<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
@@ -65,12 +70,12 @@
 					</div>
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right" >
-							<ul class="nav navbar-nav"  style="display: block;">
-								<li ><a href="#"><i class="fa fa-user"></i> Account</a></li>
-								<li ><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-								<li><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
+							<ul class="nav navbar-nav" style="display: block;" >
+								<li><a href="#"><i class="fa fa-user"></i> Account</a></li>
+								<li  ><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
+								<li  ><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li ><a th:href="@{/test}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li ><a href="login.html"><i class="fa fa-lock"></i> Login</a></li>
 							</ul>
 						</div>
 					</div>
@@ -118,6 +123,8 @@
 				</div>
 			</div>
 		</div><!--/header-bottom-->
+		
 	</header>
+		
 </body>
 </html>

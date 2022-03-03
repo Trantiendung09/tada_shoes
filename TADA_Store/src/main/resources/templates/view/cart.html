@@ -38,7 +38,7 @@
 								</div>
 							</td>
 							<td style="width: 5%;">
-								<p class="cart_total_price">$59</p>
+								<p class="cart_total_price" th:text="${cart.getSanpham().getPrice()}*${cart.getQuantity}">$59</p>
 							</td>
 							<td style="width: 5%; ">
 								<p class="id_product" th:text="${cart.getSanpham().getId()}"></p>
@@ -78,7 +78,7 @@
 			success: function(data)
 			{
 				alert("ok");
-				$('#cart_items').html(data);
+				$('#cart').html(data);
 				
 			},
 			error: function(e)
@@ -100,7 +100,7 @@
 			success: function(data)
 			{
 				alert("ok");
-				$('#cart_items').html(data);
+				$('#cart').html(data);
 				},
 			error: function(data)
 			{
@@ -117,3 +117,46 @@
 	</script>
 		</div>
 	</section>
+	<section id="do_action">
+    <div class="container" id="d">
+        <div class="heading">
+            <h3>Nhập đầy đủ thông tin mua hàng của bạn</h3>
+            <!-- <p>Nhập đầy đủ thông tin mua hàng của bạn</p> -->
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="signup-form" style="border:1px solid #E6E4DF;">
+                    <!--sign up form-->
+                    <h2 style="margin-top: 25px;">Nhập thông tin của bạn</h2>
+                    <form action="http://localhost:81/CNPM_WebBanGiay/TaoShop/trangchu/thanhtoan" method="get">
+                        <input type="hidden">   <input class="input_name" type="text" placeholder="Name" name="name" value="">
+                                                <input class="input_fullname" type="text" placeholder="fullname" name="fullname" value="">
+                                                <input class="input_email" type="email" placeholder="Email Address" name="email" value="">
+                                                <input class="input_phone" type="text" placeholder="phone" name="phone" value="">
+                                                <input class="input_adress" type="text" placeholder="adress" name="adress" value="">
+                                                <button type="submit" value="Submit" class="btn btn-default">Mua hàng</button>
+                    </form>
+                </div>
+                <!--/sign up form-->
+            </div>
+            <div class="col-sm-4">
+                <div class="total_area">
+                    <h2 style="color: #696763;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 20px; margin-top: 0px;">Thông tin hóa đơn của bạn</h2>
+                    <ul>
+                        <li>Tiền Hàng <span class="total" data-total="655000" th:text="${total}">655000</span></li>
+                        <li>Vận chuyển<span>20.000</span></li>
+                        <li>Đặt cọc<span>Miễn phí</span></li>
+                        <li>Tổng Tiền <span class="total"  th:text="${total}">655000</span></li>
+                    </ul>
+                    <!-- <a class="btn btn-default update" href="http://localhost:81/CNPM_WebBanGiay/TaoShop/trangchu/thanhtoan">Thanh Toán</a>
+                    <a class="btn btn-default check_out" href="">Check Out</a> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

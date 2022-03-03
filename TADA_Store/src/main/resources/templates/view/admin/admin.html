@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+ <script src="https://cdn.tiny.cloud/1/0l1hq91klft7zjt29f24aa7p9037tkv2ozj3d52633d7jjwo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body>
+  <form id="addEditForm" th:action="@{/admin/addEditPost}" th:object="${blogPost}" method="POST">
+        <div class="row">
+            <div class="col-md-9">
+                <label>Title</label>
+                <div>
+                    <input type="text" class="form-control" style="width:100%" maxlength="128" th:field="*{title}" placeholder="Enter title here"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9"> 
+                <textarea th:field="*{body}" style="width:100%; height:600px"></textarea>
+                <script>
+                    tinymce.init({
+                        selector: '#body',
+                        plugins: 'link lists media code |image code',
+                        toolbar: 'alignleft aligncenter alignright alignjustify | formatselect | bullist numlist | outdent indent | link code | undo redo | image code',
+                        toolbar_mode: 'floating',
+                        tinycomments_author: 'Brian Carey'     
+                        
+                    });
+                
+              </script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input type="submit" value="Save"/>
+            </div>
+        </div>    
+    </form>    
+<script src="/Styles/js/jquery.js"></script>
+	<script src="/Styles/js/bootstrap.min.js"></script>
+	<script src="/Styles/js/jquery.scrollUp.min.js"></script>
+	<script src="/Styles/js/price-range.js"></script>
+	<script src="/Styles/js/jquery.prettyPhoto.js"></script>
+	<script src="/Styles/js/main.js"></script>
+<script type="text/javascript">
+
+function ok(event)
+{
+	var img = $('#image-tools').val();
+	alert(img);
+	}
+$(document).ready(function(){
+	$('#dd').click(ok)
+	
+})
+</script>
+
+</body>
+</html>

@@ -3,16 +3,19 @@ package edu.poly.hello.entity;
 
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name="product")
 public class SanPham implements Serializable{
+	private static final long serialVersionUID = -680572096771736748L;
 	//`id`, `name`, `photo_id`, `brand_id`, `category_id`, `color`, `size`, `price`, `discount`, `note`, `quantity`, `updated_at`
 	@Id
 	@GeneratedValue
@@ -32,6 +35,14 @@ public class SanPham implements Serializable{
 	int price;
 	int discount;
 	String note;
+	public Set<Order_detail> getOrder_details() {
+		return order_details;
+	}
+	public void setOrder_details(Set<Order_detail> order_details) {
+		this.order_details = order_details;
+	}
+	@OneToMany(mappedBy = "sanPham")
+	Set<Order_detail> order_details;
 	public SanPham() {
 		super();
 	}

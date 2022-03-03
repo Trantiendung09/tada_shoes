@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="dd" th:text="${blog.getBody()}"></div>
+
+</body>
+	<script src="/Styles/js/jquery.js"></script>
+	<script src="/Styles/js/bootstrap.min.js"></script>
+	<script src="/Styles/js/jquery.scrollUp.min.js"></script>
+	<script src="/Styles/js/price-range.js"></script>
+	<script src="/Styles/js/jquery.prettyPhoto.js"></script>
+	<script src="/Styles/js/main.js"></script>
+	<script  th:inline="javascript">
+	
+	$(document).ready(function() {
+	  var x=/*[[${blog.getBody()}]]*/
+		  alert(x);
+	    $("div#dd").html(x);
+	})
+	</script>
+</html>

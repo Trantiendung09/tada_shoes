@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Cart Product</title>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="/Styles/css/bootstrap.min.css" rel="stylesheet">
+<link href="/Styles/css/animate.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="/Styles/css/font_awesome.min.css" rel="stylesheet">
+<link href="/Styles/css/main.css" rel="stylesheet">
+<link href="/Styles/css/prettyPhoto.css" rel="stylesheet">
+<link href="/Styles/css/price-range.css" rel="stylesheet">
+<link href="/Styles/css/responsive.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+</head>
+<body>
+	<div th:replace="header:: header"></div>
+	<div id="cart">
+		<section id="cart_items">
+			<div class="container">
+				<div class="breadcrumbs">
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li class="active">Shopping Cart</li>
+					</ol>
+				</div>
+				<div style="width: 100%;">
+					<table style="width: 100%;">
+						<thead>
+							<tr>
+								<td>Item</td>
+								<td>Name</td>
+								<td>Price</td>
+								<td>Quantity</td>
+								<td>Total</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="cart:${Cart.values()}">
+								<td style="width: 20%;"><a href=""><img
+										style="width: 150px; height: 150px;"
+										th:src="@{'/Styles/images/product-details/' + ${cart.getSanpham().getPhoto().getPhoto_n1()}}"
+										alt=""></a></td>
+								<td style="width: 25%; padding-right: 10%;">
+									<h6>
+										<a style="color: Orange; font-size: 15px;" href=""
+											th:text="${cart.getSanpham().getName()}"></a>
+									</h6>
+									<p>Web ID: 1089772</p>
+								</td>
+								<td style="width: 10%;">
+									<p th:text="${cart.getSanpham().getPrice()}"></p>
+								</td>
+								<td style="width: 15%;">
+									<div class="cart_quantity_button">
+										<a class="cart_quantity_up" href=""> + </a> <input
+											id="quantity" class="cart_quantity_input" type="text"
+											name="quantity" th:value="${cart.getQuantity}"
+											autocomplete="off" size="2"> <a
+											class="cart_quantity_down" href=""> - </a>
+									</div>
+								</td>
+								<td style="width: 5%;">
+									<p class="cart_total_price"
+										th:text="${cart.getSanpham().getPrice()}*${cart.getQuantity}">$59</p>
+								</td>
+								<td style="width: 5%;">
+									<p class="id_product" th:text="${cart.getSanpham().getId()}"></p>
+									<a class="deletecart" title="xoa" href=""
+									style="padding-left: 10px; color: Orange; font-size: 25px; background-color: transparent; text-decoration: none;"><i
+										class="fa fa-trash" aria-hidden="true"></i></i></a>
+								</td>
+								<td style="width: 5%;">
+									<p class="id_product" th:text="${cart.getSanpham().getId()}"></p>
+									<a class="updatecart" title="sua" href=""
+									style="padding-left: 10px; color: Orange; font-size: 25px; background-color: transparent; text-decoration: none;"><i
+										class="fa fa-wrench" aria-hidden="true"></i></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+		<section id="do_action">
+			<div class="container" id="d">
+				<div class="heading">
+					<h3>Nhập đầy đủ thông tin mua hàng của bạn</h3>
+					<!-- <p>Nhập đầy đủ thông tin mua hàng của bạn</p> -->
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="signup-form" style="border: 1px solid #E6E4DF;">
+							<!--sign up form-->
+							<h2 style="margin-top: 25px;">Nhập thông tin của bạn</h2>
+							<form th:action="@{/muahang}" method="POST"
+								th:object="${customer}">
+								<input class="input_name" type="text" placeholder="Name"
+									th:field="*{name}"> 
+									<input
+									class="input_fullname" type="text" placeholder="fullname"
+									th:field="*{fullname}" name="fullname" value=""> 
+									<input
+									type="email" placeholder="Email Address"
+									th:field="*{email}" name="email" value=""> 
+									<input
+									class="input_phone" type="text" placeholder="phone"
+									th:field="*{phone}" name="phone" value=""> 
+									<input
+									 type="text" placeholder="adress"
+									th:field="*{adress}" name="adress" value="">
+								<button type="submit" value="Submit" class="btn btn-default">Mua
+									hàng</button>
+							</form>
+						</div>
+						<!--/sign up form-->
+					</div>
+					<div class="col-sm-4">
+						<div class="total_area">
+							<h2
+								style="color: #696763; font-family: 'Roboto', sans-serif; font-size: 20px; font-weight: 300; margin-bottom: 20px; margin-top: 0px;">Thông
+								tin hóa đơn của bạn</h2>
+							<ul>
+								<li>Tiền Hàng <span class="total" data-total="655000"
+									th:text="${total}">655000</span></li>
+								<li>Vận chuyển<span>20.000</span></li>
+								<li>Đặt cọc<span>Miễn phí</span></li>
+								<li>Tổng Tiền <span class="total" th:text="${total}">655000</span></li>
+							</ul>
+							<!-- <a class="btn btn-default update" href="http://localhost:81/CNPM_WebBanGiay/TaoShop/trangchu/thanhtoan">Thanh Toán</a>
+                    <a class="btn btn-default check_out" href="">Check Out</a> -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+	</div>
+	<div th:replace="footer:: footer"></div>
+	<!--/Footer-->
+	<a id="scrollUp" href="#top"
+		style="display: none; position: fixed; z-index: 2147483647;"><i
+		class="fa fa-angle-up"></i></a>
+	<script src="/Styles/js/jquery.js"></script>
+	<script src="/Styles/js/bootstrap.min.js"></script>
+	<script src="/Styles/js/jquery.scrollUp.min.js"></script>
+	<script src="/Styles/js/price-range.js"></script>
+	<script src="/Styles/js/jquery.prettyPhoto.js"></script>
+	<script src="/Styles/js/main.js"></script>
+	<script>
+	function updatecart(event)
+	{
+		event.preventDefault();
+		var id=$(this).parent('td').children('p.id_product').text();
+		var quantity=$(this).parents('tr').find('.cart_quantity_input').val();
+		alert(id);
+		$.ajax({
+			type: 'GET',
+			contentType: "application/json",
+			url:"/updatecart",
+			data:{
+				id:id, quantity: quantity},
+			success: function(data)
+			{
+				alert("ok");
+				$('#cart').html(data);
+				
+			},
+			error: function(e)
+			{
+				alert("loi")
+			}
+			});
+	}
+	function deletecart(event)
+	{
+		event.preventDefault();
+		var id=$(this).parent('td').children('p.id_product').text();
+		alert(id);
+		$.ajax({
+			type: 'GET',
+			contentType: "application/json",
+			url: "/deletecart",
+			data: {id: id},
+			success: function(data)
+			{
+				alert("ok");
+				$('#cart').html(data);
+				},
+			error: function(data)
+			{
+				alert("loi");
+				}
+			})
+	}
+	$(document).ready(function(){
+		   $('a.updatecart').click(updatecart);
+		   $('a.deletecart').click(deletecart);
+		   $("p.id_product").hide();
+		})
+	</script>
+</body>
+</html>
